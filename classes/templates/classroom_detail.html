@@ -6,11 +6,60 @@
     Classroom Details
   </div>
   <div class="card-body">
-    <h5 class="card-title" style="color: 000034;">{{classroom.name}} {{classroom.subject}}</h5>
+    <h2 class="card-title" style="color: 000034;">{{classroom.name}}</h2>
+    <h5 class="card-title" style="color: 000034;">{{classroom.subject}}</h5>
     <p class="card-text" style="color: 000034;">{{classroom.year}}</p>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'student-create' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Add Student</a>
     <a href="{% url 'classroom-update' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
     <a href="{% url 'classroom-delete' classroom.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+    {% endif %}
   </div>
 </div>
+<br>
+<div class="card text-center">
+  <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
+    Students
+  </div>  
+</div>
+<br>
+<div>
+  <table class="table">
+  <thead style="background-color: #000034; color: white;">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Date of Birth</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Exam Grade</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student  in students %}
+      <tr>
+        <th scope='row'>{{student.id}}</th>
+        <td>{{student}}</td>
+        <td>{{student.date_of_birth}}</td>
+        <td>{{student.gender}}</td>
+        <td>{{student.exam_garde}}</td>
+        <td>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'student-update' classroom.id  student.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
+          <a href="{% url 'student-delete' classroom.id  student.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
+          {% else %}
+          <a class="btn" style="background-color: crimson; color: #ffffff;">Can't Edit !</a>
+          {% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <p style="background-color: crimson ; color: white; padding :4px;">No Students in this Class!</p>
+    {% endfor %}
+  </tbody>
+</div>
+
 
 {% endblock content %}
+
+
+

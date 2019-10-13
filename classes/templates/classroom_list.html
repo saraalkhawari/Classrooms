@@ -3,16 +3,22 @@
 {% block content %}
 <div class="row">
 	{% for classroom in classrooms %}
-<div class="col-sm-4">
-	<div class="card">
-		<div class="card-body">
-			<h5 class="card-title">Name: {{classroom.name}}</h5>
-			<p class="card-text">Subject: {{classroom.subject}}</p>
-			<p class="card-text">Year: {{classroom.year}}</p>
-			<a href="{{classroom.get_absolute_url}}" class="btn" style="background-color: #e3f2fd; color: black;">View</a>
+	<div class="col-sm-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">Name: {{classroom.name}}</h5>
+				<p class="card-text">Subject: {{classroom.subject}}</p>
+				<p class="card-text">Year: {{classroom.year}}</p>
+				<a href="{{classroom.get_absolute_url}}" class="btn" style="background-color: #e3f2fd; color: black;">View</a>
+			</div>
 		</div>
 	</div>
-</div>
+	{% empty %}
+		<div class="card text-center">
+		  <div class="card-header" style="background-color: crimson; color: white;">
+		    No Classes Yet !
+		  </div>
+		</div>
 	{% endfor %}
 </div>
 
